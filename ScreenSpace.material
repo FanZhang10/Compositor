@@ -1,0 +1,45 @@
+vertex_program screen_space_vs glsl 
+{
+    source ScreenSpaceVp.glsl 
+
+    default_params
+    {
+        param_named_auto world_mat world_matrix
+        param_named_auto view_mat view_matrix
+        param_named_auto projection_mat projection_matrix
+    }
+}
+
+
+fragment_program screen_space_fs glsl 
+{
+    source ScreenSpaceFp.glsl 
+
+	default_params
+	{
+		 param_named time float 0.0
+		 param_named effect int 0
+	}
+}
+
+
+material ScreenSpaceMaterial
+{
+    technique
+    {
+        pass
+        {
+            vertex_program_ref screen_space_vs
+            {
+            }
+
+            fragment_program_ref screen_space_fs
+            {
+            }
+			texture_unit
+			{
+				tex_address_mode wrap
+			}
+        } 
+    }
+}
